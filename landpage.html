@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Online Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f3f3f3;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff9900;
+        }
+
+        .search-bar {
+            display: flex;
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar button {
+            background-color: #ff9900;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .cart {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Main Content */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 500px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .hero button {
+            background-color: #ff9900;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .category {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        /* Product Grid */
+        .products {
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .products h2 {
+            color: #131921;
+        }
+
+        .see-all {
+            color: #0066c0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .see-all:hover {
+            text-decoration: underline;
+            color: #c45500;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #cc0c39;
+            color: white;
+            padding: 3px 8px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #f7f7f7;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            color: #B12704;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        .product-savings {
+            color: #cc0c39;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            color: #ff9900;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .product-review-count {
+            color: #0066c0;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .add-to-cart {
+            background-color: #ffd814;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .add-to-cart:hover {
+            background-color: #f7ca00;
+        }
+
+        .prime-badge {
+            color: #0066c0;
+            font-size: 12px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .prime-badge img {
+            width: 50px;
+            margin-right: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #131921;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Amazon</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products...">
+            <button>Search</button>
+        </div>
+        <div class="nav-links">
+            <a href="#">Account</a>
+            <a href="#">Orders</a>
+            <div class="cart">
+                <span>Cart</span>
+                <span>(0)</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Summer Sale - Up to 50% Off</h1>
+                <p>Discover amazing deals on thousands of products. Limited time offer!</p>
+                <button>Shop Now</button>
+            </div>
+        </section>
+
+        
+
+        <section class="products">
+            <div class="section-header">
+                <h2>Today's Deals</h2>
+                <a href="#" class="see-all">See all deals</a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-badge">30% off</div>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/61SUj2aKoEL._AC_UF1000,1000_QL80_.jpg" alt="Wireless Headphones">
+                    </div>
+                    <div class="product-title">Sony WH-CH510 Wireless Headphones with Mic</div>
+                    <div class="product-price">$59.99 <span class="original-price">$85.00</span></div>
+                    <div class="product-savings">Save $25.01 (30%)</div>
+                    <div class="product-rating">★★★★☆ <span class="product-review-count">(12,345)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">20% off</div>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/71Swqqe7XAL._AC_UF1000,1000_QL80_.jpg" alt="Smart Watch">
+                    </div>
+                    <div class="product-title">Noise ColorFit Pro 4 Smart Watch with Fitness Tracker</div>
+                    <div class="product-price">$89.99 <span class="original-price">$112.49</span></div>
+                    <div class="product-savings">Save $22.50 (20%)</div>
+                    <div class="product-rating">★★★★★ <span class="product-review-count">(8,742)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">15% off</div>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/81QpkIctqPL._AC_UF1000,1000_QL80_.jpg" alt="4K TV">
+                    </div>
+                    <div class="product-title">Samsung 55-inch 4K Ultra HD Smart QLED TV</div>
+                    <div class="product-price">$499.99 <span class="original-price">$588.22</span></div>
+                    <div class="product-savings">Save $88.23 (15%)</div>
+                    <div class="product-rating">★★★★☆ <span class="product-review-count">(5,678)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">40% off</div>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/61BGE6iu4AL._AC_UF1000,1000_QL80_.jpg" alt="Wireless Charger">
+                    </div>
+                    <div class="product-title">Portronics Wireless Charging Pad 15W Fast Charger</div>
+                    <div class="product-price">$19.99 <span class="original-price">$33.32</span></div>
+                    <div class="product-savings">Save $13.33 (40%)</div>
+                    <div class="product-rating">★★★☆☆ <span class="product-review-count">(3,456)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="products">
+            <div class="section-header">
+                <h2>Best Sellers in Electronics</h2>
+                <a href="#" class="see-all">See all</a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/61L1ItFgFHL._AC_UF1000,1000_QL80_.jpg" alt="Echo Dot">
+                    </div>
+                    <div class="product-title">Amazon Echo Dot (5th Gen) Smart Speaker with Alexa</div>
+                    <div class="product-price">$49.99</div>
+                    <div class="product-rating">★★★★★ <span class="product-review-count">(45,678)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UF1000,1000_QL80_.jpg" alt="Fire TV Stick">
+                    </div>
+                    <div class="product-title">Amazon Fire TV Stick 4K with Alexa Voice Remote</div>
+                    <div class="product-price">$39.99</div>
+                    <div class="product-rating">★★★★☆ <span class="product-review-count">(32,456)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/61XZQXFQeVL._AC_UF1000,1000_QL80_.jpg" alt="Kindle">
+                    </div>
+                    <div class="product-title">All-new Kindle (16GB) with Built-in Front Light</div>
+                    <div class="product-price">$99.99</div>
+                    <div class="product-rating">★★★★★ <span class="product-review-count">(28,901)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/71w3oJ7aWyL._AC_UF1000,1000_QL80_.jpg" alt="Bluetooth Speaker">
+                    </div>
+                    <div class="product-title">JBL Flip 6 Portable Bluetooth Speaker with Powerful Sound</div>
+                    <div class="product-price">$129.95</div>
+                    <div class="product-rating">★★★★☆ <span class="product-review-count">(9,876)</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <div class="prime-badge">
+                        <img src="https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.png" alt="Prime">
+                        <span>FREE Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Help</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Shipping Rates</a>
+            <a href="#">Returns</a>
+        </div>
+        <div class="copyright">
+            &copy; 1996-2023, Amazon.com, Inc. or its affiliates
+        </div>
+    </footer>
+</body>
+</html>
